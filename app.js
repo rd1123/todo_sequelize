@@ -30,7 +30,9 @@ app.get('/', (req, res, next) => {
 })
 
 // routers
+app.use('/', require('./routes/home'))
 app.use('/users', require('./routes/user'))
+app.use('/todos', require('./routes/todo'))
 
 app.listen(port, () => {
   console.log('server start!')
