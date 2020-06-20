@@ -24,36 +24,10 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 
-app.get('/', (req, res) => {
-  res.send('good page')
-})
 
-//users
-app.get('/users/login', (req, res) => {
-  res.render('login')
-})
 
-app.post('/users/login', (req, res) => {
-  res.send('check login')
-})
-
-app.get('/users/register', (req, res) => {
-  res.render('register')
-
-})
-
-app.post('/users/register', (req, res) => {
-  User.create({
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password
-  })
-    .then(user => res.redirect('/users/login'))
-})
-
-app.get('/users/logout', (req, res) => {
-  res.send('logout')
-})
+// routers
+app.use('/users', require('./routes/user'))
 
 app.listen(port, () => {
   console.log('server start!')
