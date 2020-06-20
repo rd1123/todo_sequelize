@@ -5,6 +5,10 @@ const session = require('express-session')
 const passport = require('passport')
 const app = express()
 
+const db = require('./models')
+const Todo = db.Todo
+const User = db.User
+
 const port = 3000
 
 app.engine('handlebars', exphb({ defaultLayout: 'main' }))
@@ -35,10 +39,16 @@ app.post('/users/login', (req, res) => {
 
 app.get('/users/register', (req, res) => {
   res.render('register')
+
 })
 
 app.post('/users/register', (req, res) => {
-  res.send('register init')
+  User.create({
+    name: req.body.name,
+    email: req.body.email,
+    password: req.body.password
+  })
+    .then(user => res.redirect('/users/login'))
 })
 
 app.get('/users/logout', (req, res) => {
