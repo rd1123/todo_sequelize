@@ -26,6 +26,7 @@ require('./config/passport')(passport)
 
 app.get('/', (req, res, next) => {
   res.locals.user = req.user
+  res.locals.isAuthenticated = req.isAuthenticated()
   next()
 })
 
