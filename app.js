@@ -22,9 +22,12 @@ app.use(session({
 }))
 app.use(passport.initialize())
 app.use(passport.session())
+require('./config/passport')(passport)
 
-
-
+app.get('/', (req, res, next) => {
+  res.locals.user = req.user
+  next()
+})
 
 // routers
 app.use('/users', require('./routes/user'))
