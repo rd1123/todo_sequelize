@@ -5,17 +5,20 @@ const User = db.User
 const Todo = db.Todo
 const { authenticated } = require('../config/auth')
 
-app.get('/', authenticated, (req, res) => {
+router.get('/', authenticated, (req, res) => {
   User.findByPk(req.user.id)
     .then((user) => {
       if (!user) throw new Error('User not found')
 
       return Todo.findAll({
+        raw: true,
+        nest: true,
         where: {
           UserId: req.user.id,
         }
       })
-        .then(todos => res.render())
+        .then(todos => res.render('index', { todos: todos }))
+        .catch(error => res.status(422).json(error))
     })
 })
 
