@@ -24,6 +24,27 @@ app.get('/', (req, res) => {
   res.send('good page')
 })
 
+//users
+app.get('/users/login', (req, res) => {
+  res.render('login')
+})
+
+app.post('/users/login', (req, res) => {
+  res.send('check login')
+})
+
+app.get('/users/register', (req, res) => {
+  res.render('register')
+})
+
+app.post('/users/register', (req, res) => {
+  res.send('register init')
+})
+
+app.get('/users/logout', (req, res) => {
+  res.send('logout')
+})
+
 app.listen(port, () => {
   console.log('server start!')
 })
