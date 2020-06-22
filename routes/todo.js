@@ -64,7 +64,7 @@ router.put('/:id', authenticated, (req, res) => {
   })
     .then((todo) => {
       todo.name = req.body.name
-      todo.done = req.body.done
+      todo.done = req.body.done === 'on'
 
       return todo.save()
     })
