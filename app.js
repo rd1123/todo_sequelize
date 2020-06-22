@@ -1,9 +1,11 @@
 const express = require('express')
+const app = express()
 const exphb = require('express-handlebars')
 const methodOverride = require('method-override')
 const session = require('express-session')
 const passport = require('passport')
-const app = express()
+const flash = require('connect-flash')
+
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
@@ -14,23 +16,27 @@ const User = db.User
 const port = 3000
 
 
-
 app.engine('handlebars', exphb({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
-app.use(methodOverride('_method'))
+
 app.use(express.urlencoded({ extended: true }))
+app.use(methodOverride('_method'))
 app.use(session({
   secret: 'my secret',
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: true
 }))
+app.use(flash())
 app.use(passport.initialize())
 app.use(passport.session())
+
 require('./config/passport')(passport)
 
-app.get('/', (req, res, next) => {
+app.use('/', (req, res, next) => {
   res.locals.user = req.user
   res.locals.isAuthenticated = req.isAuthenticated()
+  res.locals.success_msg = req.flash('success_msg')
+  res.locals.warning_msg = req.flash('warning_msg')
   next()
 })
 

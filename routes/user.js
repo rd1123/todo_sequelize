@@ -5,6 +5,7 @@ const User = db.User
 const passport = require('passport')
 const bcrypt = require('bcryptjs')
 
+
 //users
 router.get('/login', (req, res) => {
   res.render('login')
@@ -24,10 +25,19 @@ router.get('/register', (req, res) => {
 
 router.post('/register', (req, res) => {
   const { name, email, password, password2 } = req.body
+  const errors = []
+
+  if (!name || !email || !password || !password2) {
+    errors.push({ message: '所有欄位都是必填' })
+  }
+  if (password !== password2) {
+    errors.push({ message: '密碼輸入錯誤' })
+  }
+
   User.findOne({ where: { email: email } })
     .then(user => {
       if (user) {
-        console.log('User already exists')
+        errors.push({ message: '此email已經註冊過了' })
         res.render('register', {
           name,
           email,
@@ -54,6 +64,7 @@ router.post('/register', (req, res) => {
 
 router.get('/logout', (req, res) => {
   req.logout()
+  req.flash('success_msg', '已經成功登出')
   res.redirect('/users/login')
 })
 
