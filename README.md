@@ -8,7 +8,7 @@
 ## 相關安裝
 1. 開啟terminal(終端機)，開啟作業目錄下執行:
 ```
-git clone https://github.com/rd1123/todo_sequalize.git
+git clone https://github.com/rd1123/todo_sequelize.git
 ```
 2. 移動至目錄todo_sequelize
 ```
@@ -18,8 +18,14 @@ cd path/todo_sequelize
 ```
 npm install
 ```
-4. 確認是否建立todo_sequelize database
-5. 輸入指令啟動本機伺服器
+4. 有使用facebook三方登入，需建立.env檔並輸入三變數
+```
+FACEBOOK_ID=xxxxx
+FACEBOOK_SECRET=xxxxx
+FACEBOOK_CALLBACK=http://localhost:3000/auth/facebook/callback
+```
+5. 確認是否建立todo_sequelize database
+6. 輸入指令啟動本機伺服器
 ```
 npm run dev
 ```
