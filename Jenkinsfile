@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Pre-Build') {
             steps {
-                echo "Build Started"
+                echo "Build Started!"
             }
         }
     }
