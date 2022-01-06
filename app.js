@@ -48,5 +48,5 @@ app.use('/todos', require('./routes/todo'))
 app.use('/auth', require('./routes/auth'))
 
 app.listen(port, () => {
-  console.log('server start!!')
+  console.log('server start!!!')
 })
